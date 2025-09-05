@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { z } from 'zod';
-import prisma from './prisma.js';
+import prisma from './prisma';
 import { normalizeAddress, fetchPositions, fetchActivity, fetchValue, fetchGammaMarkets, fetchClobMarket } from './polymarket.js';
 import { computeProfileFeatures } from './profile.js';
 import { makeRecommendations } from './recommend.js';
