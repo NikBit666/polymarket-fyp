@@ -1,0 +1,59 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  walletInput   String  @id
+  proxyWallet   String?
+  totalValueUsd Float?
+  firstSeenAt   DateTime @default(now())
+  lastSeenAt    DateTime @updatedAt
+  Profile       ProfileFeatures?
+}
+
+model ProfileFeatures {
+  wallet   String @id
+  features Json
+  updatedAt DateTime @default(now())
+}
+
+model Market {
+  conditionId   String @id
+  slug          String?
+  question      String?
+  category      String?
+  tags          String[]
+  endDate       DateTime?
+  bestBid       Float?
+  bestAsk       Float?
+  volume24h     Float?
+  oneDayPriceChange Float?
+  liquidity     Float?
+  enableOrderBook Boolean?
+  clobTokenIds  String[]
+  updatedAt     DateTime @default(now())
+}
+
+model Position {
+  id           String  @id
+  wallet       String
+  conditionId  String
+  outcomeIndex Int
+  size         Float?
+  avgPrice     Float?
+  initialValue Float?
+  currentValue Float?
+  cashPnl      Float?
+  percentPnl   Float?
+  endDate      DateTime?
+  slug         String?
+  title        String?
+  category     String?
+  tags         String[]
+}

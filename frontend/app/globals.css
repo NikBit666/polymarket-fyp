@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0b0c10;
+  --card: #111218;
+  --text: #e6e6e6;
+  --muted: #9aa0a6;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(1200px 600px at 20% 0%, #12131a 0%, #0b0c10 40%);
+  color: var(--text);
+}
