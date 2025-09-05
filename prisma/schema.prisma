@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  address   String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Profile information
+  username  String?
+  bio       String?
+  avatar    String?
+
+  // Trading history
+  trades    Trade[]
+  
+  @@map("users")
+}
+
+model Market {
+  id          String   @id @default(cuid())
+  marketId    String   @unique
+  question    String
+  description String?
+  category    String?
+  endDate     DateTime?
+  resolved    Boolean  @default(false)
+  outcome     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Market data
+  volume      Float    @default(0)
+  liquidity   Float    @default(0)
+  yesPrice    Float    @default(0.5)
+  noPrice     Float    @default(0.5)
+
+  // Relations
+  trades      Trade[]
+  
+  @@map("markets")
+}
+
+model Trade {
+  id        String   @id @default(cuid())
+  userId    String
+  marketId  String
+  side      String   // "YES" or "NO"
+  amount    Float
+  price     Float
+  timestamp DateTime @default(now())
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id])
+  market    Market   @relation(fields: [marketId], references: [id])
+  
+  @@map("trades")
+}
